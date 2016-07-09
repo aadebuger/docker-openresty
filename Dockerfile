@@ -13,7 +13,7 @@ run git clone https://github.com/openresty/openresty
 workdir  /github/openresty 
 run make
 workdir  /github/openresty/openresty-1.9.15.2rc0 
-
 run  cd /github/openresty/openresty-* && ./configure
 run make
 run make install
+env PATH=/usr/local/openresty/nginx/sbin:$PATH
