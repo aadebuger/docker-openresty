@@ -1,0 +1,29 @@
+from ubuntu
+run apt-get -y update
+run apt-get -y install git
+run apt-get -y install wget
+run apt-get -y install libreadline-dev libncurses5-dev libpcre3-dev libssl-dev perl make build-essential
+run apt-get -y  install tofrodos 
+run apt-get -y install mercurial 
+run ln -s /usr/bin/todos /usr/bin/unix2dos 
+run ln -s /usr/bin/fromdos /usr/bin/dos2unix 
+run mkdir /github
+workdir /github
+run git clone https://github.com/openresty/openresty
+workdir  /github/openresty 
+run make
+workdir  /github/openresty/openresty-1.9.15.2rc0 
+run  cd /github/openresty/openresty-* && ./configure
+run make
+run make install
+workdir /github
+run wget http://luarocks.org/releases/luarocks-2.0.13.tar.gz
+run tar -xzvf luarocks-2.0.13.tar.gz
+run cd luarocks-2.0.13 && ./configure --prefix=/usr/local/openresty/luajit \
+    --with-lua=/usr/local/openresty/luajit/ \
+    --lua-suffix=jit-2.1.0-beta2 \
+    --with-lua-include=/usr/local/openresty/luajit/include/luajit-2.1
+run cd luarocks-2.0.13 && make
+run cd luarocks-2.0.13 && make install
+#run  /usr/local/openresty/luajit/share/lua/5.1//luarocks  install md5
+env PATH=/usr/local/openresty/nginx/sbin:$PATH
